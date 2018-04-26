@@ -132,7 +132,7 @@ function exportNetwork() {
 
     var nodes = objectToArray(network.getPositions());
 
-    for (var i = 1; i <= 22; i++) {
+    for (var i = 0; i <= 22; i++) {
         matrix[i] = [];
         for (var y = 1; y <= 22; y++) {
             matrix[i][y] = 0;
@@ -210,28 +210,59 @@ function drawTable(matrix) {
 
 function createNewPotok() {
     var potok = [];
-    matrix.forEach(function (parent_item, parent_key, parent_array) {
-        matrix[parent_key].forEach(function (item, key, array) {
-            if (matrix[parent_key][key] == 1) {
-                potok.push(key);
-                parent_key = key;
-                matrix.forEach(function (children_item, children_key, children_array) {
-                    matrix[children_key][key] = 0;
-                });
-                break;
+    var flag_end_potok = 0;
+    var flag_already_exist = 0;
+    for (var row = 1; row < matrix.length; row++) {
+        if (matrix[0][row] != 1) {
+            flag_already_exist = 1;
+        }
+        for (var col = 1; col < matrix[row].length; col++) {
+            if (matrix[row][col] == 1) {
+                if (flag_already_exist) {
+                    if (!flag_end_potok) {
+                        potok.push(row);
+                        matrix[0][row] = 1;
+                    }
+                    potok.push(col);
+                    matrix[0][col] = 1;
+                    for (var inner_row = 1; inner_row < matrix.length; inner_row++) {
+                        matrix[inner_row][col] = 0;
+                        // if(!flag_end_potok) {
+                        //     matrix[row][inner_row] = 0;
+                        // }
+                    }
+                    row = col - 1;
+                    flag_end_potok = 1;
+                    break;
+                }
+            } else if (col == matrix[row].length - 1 && flag_end_potok) {
+                return potok;
             }
-        })
-    })
+        }
+
+
+    }
+    // matrix.forEach(function (parent_item, parent_key, parent_array) {
+    //     matrix[parent_key].some(function (item, key, array) {
+    //         if (matrix[parent_key][key] == 1) {
+    //             potok.push(key);
+    //             parent_key = key;
+    //             matrix.forEach(function (children_item, children_key, children_array) {
+    //                 matrix[children_key][key] = 0;
+    //             });
+    //             return true;
+    //         }
+    //     })
+    // })
     return potok;
 }
 
 function descriptionActor() {
     var potok_arr = [];
     var potok = createNewPotok();
-    potok_arr.push(potok);
-    while (potok != null) {
-        potok = createNewPotok();
+    while (potok.length > 0) {
         potok_arr.push(potok);
+        potok = createNewPotok();
     }
     console.log(potok_arr);
     return potok_arr;
