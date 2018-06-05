@@ -20,6 +20,9 @@
             Create a simple network with some nodes and edges.
         </p>
         <input class="btn-lg" type="button" id="export_button" onclick="exportNetwork()" value="export">
+        <input type="button" id="create-new-data" onclick="addNode();" value="create data">
+        <img id="data-source" src="img/favicon/favicon.ico" alt="">
+        <svg style="cursor: pointer;"  width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"/></svg>
         <br>
         <div id="network-popUp">
             <span id="operation">node</span> <br>
@@ -40,8 +43,7 @@
         <div id="mynetwork"></div>
 
     </div>
-    <div class="col-md-6">
-        <div class="container">
+
             <h2>Bordered Table</h2>
             <p>The .table-bordered class adds borders to a table:</p>
             <div class="table-responsive">
@@ -50,8 +52,7 @@
                     <tbody id="empty-table"></tbody>
                 </table>
             </div>
-        </div>
-    </div>
+
 </div>
 
 
